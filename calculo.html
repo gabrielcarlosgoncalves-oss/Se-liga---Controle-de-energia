@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se liga - Controle de Energia</title>
+    <link rel="stylesheet" href="calculo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"> <!-- Aqui vai o bootstrap -->
+    <link rel="icon" href="Imagens/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <!-- Cabeçalho -->
+  <header>
+    <nav>
+      <a href="index.html">
+  <img src="Imagens/Se liga.png" alt="Logo do Site" class="logo">
+</a>
+      <ul>
+        <li><a href="Index.html">Início</a></li>
+        <li><a href="Index.html">Sobre</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="calculo.html">Calculo</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <h2>Calculadora de Custo de Energia (PE)</h2>
+    
+    <form class="calculo">
+        <label for="equipamento" class="titulo-equipamento">Eletrodoméstico:</label>
+        <input class="form-control" id="equipamento" type="text" value=" " required>
+
+        <label for="modelo" class="titulo-modelo">Modelo Equipamento (Opcional):</label>
+        <input class="form-control" id="modelo" type="text">
+            
+        <label for="potencia" class="titulo-potencia">Potência (WATTS):</label>
+        <input class="form-control" id="potencia" type="number" value=" " required>
+        
+        <label for="tempo" class="titulo-tempo">Uso Diário (Horas):</label>
+        <input class="form-control" id="tempo" type="number" value=" " required>
+
+        <button type="button" onclick="executarCalculo()">Calcular Custo</button>
+    </form>
+
+    <div id="resultado" class="resultado-box">
+        <p>Preencha os dados acima e clique em "Calcular Custo".</p>
+    </div>
+
+    <script>
+        /**
+         * FUNÇÃO DE CÁLCULO (O MOTOR)
+         * Realiza o cálculo de consumo (kWh) e custo (R$)
+         */
+        function calculo_energia(equipamento, potenciaWatts, usoDiarioHoras) {
+            // Tarifa Fixa de Pernambuco (R$/kWh) - Exemplo médio
+            const TARIFA_PERNAMBUCO = 0.85; 
+
+            // Cálculo do Consumo Diário (kWh/dia)
+            const consumoDiarioKWh = (potenciaWatts * usoDiarioHoras) / 1000;
+
+            // Função Auxiliar para calcular resultados para um período específico
+            const calcularResultado = (dias) => {
+                const consumoTotalKWh = consumoDiarioKWh * dias;
+                const custoTotalReais = consumoTotalKWh * TARIFA_PERNAMBUCO;
+
+                return {
+                    dias: dias,
+                    consumoKWh: parseFloat(consumoTotalKWh.toFixed(2)),
+                    custoReais: parseFloat(custoTotalReais.toFixed(2))
+                };
+            };
+
+            // Retorna o objeto completo de resultados
+            return {
+                equipamento: equipamento,
+                potencia: `${potenciaWatts} Watts`,
+                usoDiario: `${usoDiarioHoras} horas/dia`,
+                tarifaAplicada: `R$ ${TARIFA_PERNAMBUCO.toFixed(2)} / kWh (PE)`,
+                
+                consumoDiario: calcularResultado(1),
+                consumoSemanal: calcularResultado(7),
+                consumoQuizenal: calcularResultado(14),
+                consumoMensalEspecial: calcularResultado(23),
+                consumoMensal: calcularResultado(30)
+            };
+        }
+
+        /**
+         * FUNÇÃO DE CONEXÃO (O Eletricista)
+         * Pega dados do HTML, chama a função de cálculo e exibe o resultado
+         */
+        function executarCalculo() {
+            // 1. Coleta dos dados do formulário pelos IDs
+            const nomeEquipamento = document.getElementById('equipamento').value;
+            const modeloEquipamento = document.getElementById('modelo').value;
+            // Combina Nome e Modelo para o relatório final
+            const equipamento = nomeEquipamento + (modeloEquipamento ? ` (${modeloEquipamento})` : '');
+
+            // Converte para número e valida
+            const potenciaWatts = parseFloat(document.getElementById('potencia').value); 
+            const usoDiarioHoras = parseFloat(document.getElementById('tempo').value); // ID corrigido para 'tempo'
+
+            // Validação
+            if (!nomeEquipamento || isNaN(potenciaWatts) || isNaN(usoDiarioHoras) || potenciaWatts <= 0 || usoDiarioHoras < 0) {
+                document.getElementById('resultado').innerHTML = '<p style="color: red;">Por favor, preencha o nome, a potência (Watts) e o tempo de uso (Horas) com valores válidos e positivos.</p>';
+                return;
+            }
+
+            // 2. Chamada da função de cálculo
+            const resultados = calculo_energia(equipamento, potenciaWatts, usoDiarioHoras);
+
+            // 3. Formatação do HTML para exibição
+            let htmlResultado = `
+                <h3>Custo Estimado para ${resultados.equipamento}</h3>
+                <p>Potência: <strong>${resultados.potencia}</strong> | Uso: <strong>${resultados.usoDiario}</strong></p>
+                <p>Tarifa Aplicada: ${resultados.tarifaAplicada}</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Período</th>
+                            <th>Consumo (kWh)</th>
+                            <th>Custo (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 Dia</td>
+                            <td>${resultados.consumoDiario.consumoKWh.toFixed(2)}</td>
+                            <td>${resultados.consumoDiario.custoReais.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>7 Dias</td>
+                            <td>${resultados.consumoSemanal.consumoKWh.toFixed(2)}</td>
+                            <td>${resultados.consumoSemanal.custoReais.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>14 Dias</td>
+                            <td>${resultados.consumoQuizenal.consumoKWh.toFixed(2)}</td>
+                            <td>${resultados.consumoQuizenal.custoReais.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>23 Dias</td>
+                            <td>${resultados.consumoMensalEspecial.consumoKWh.toFixed(2)}</td>
+                            <td>${resultados.consumoMensalEspecial.custoReais.toFixed(2)}</td>
+                        </tr>
+                        <tr style="font-weight: bold;">
+                            <td>30 Dias (Mensal)</td>
+                            <td>${resultados.consumoMensal.consumoKWh.toFixed(2)}</td>
+                            <td>${resultados.consumoMensal.custoReais.toFixed(2)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            
+            // 4. Inserção do HTML gerado na div de resultados
+            document.getElementById('resultado').innerHTML = htmlResultado;
+        }
+    </script>
+<!-- Conteúdo rodapé -->
+<footer>
+  <p>
+  &copy; 2025 Gabriel Carlos 
+  <a href="https://github.com/gabrielcarlosgoncalves-oss"                                                       
+    <i class="bi bi-github"></i>
+  </a> 
+  <a href="https://www.instagram.com/gabriel.goncalveslima?igsh=ZHhidWJoY293Ynpi" target="_blank">
+    <i class="bi bi-instagram"></i>
+  </a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  &copy; 2025 Daniel Pereira 
+  <a href="https://github.com/Daniel-dev25"                                           
+    <i class="bi bi-github"></i>
+  </a> 
+  <a href="https://www.instagram.com/daniek_25/" target="_blank">
+    <i class="bi bi-instagram"></i>
+  </a>
+<p>
+  &copy; 2025 Emilly Maria 
+  <a href="https:"                                                       
+    <i class="bi bi-github"></i>
+  </a> 
+  <a href="https:" target="_blank">
+    <i class="bi bi-instagram"></i>
+  </a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  &copy; 2025 Matheus Alves 
+  <a href="https://github.com/magsgthb"                                           
+    <i class="bi bi-github"></i>
+  </a> 
+  <a href="https:" target="_blank">
+    <i class="bi bi-instagram"></i>
+  </a>
+</p>
+<p>&copy; 2025 Vitor William da Silva 
+    <a href="https://github.com/vedablio-10"                                                    
+      <i class="bi bi-github"></i>
+    </a>
+    <a href="https"                                                    
+      <i class="bi bi-instagram"></i>
+    </a>
+  </p>
+
+</footer>
+
+</body>
+</html>

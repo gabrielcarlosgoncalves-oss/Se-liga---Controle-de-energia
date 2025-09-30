@@ -1,0 +1,213 @@
+form {     /* Estilos para o formulário */
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+
+form {
+  width: 100%;
+  max-width: 400px;     /* largura máxima do form */
+  margin: 0 auto;       /* centraliza horizontalmente */
+}
+
+
+/* Reset básico para tirar margens e paddings padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* header compacto */
+header {
+  background: #4a90e2;
+  color: #fff;
+  padding: 8px 0;          /* cabeçalho menor */
+}
+
+/* nav flex */
+header nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;     /* alinhamento por base do layout */
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative;
+  overflow: visible;       /* permite que o logo “ultrapasse” sem ser cortado */
+}
+
+/* controle de tamanho no fluxo (impacta header) */
+.logo {
+  height: 50px;            /* controla a altura que o header "vê" */
+  width: auto;
+  display: block;
+  transform: scale(1.8);   /* aumenta visualmente sem mexer no fluxo */
+  transform-origin: left center;
+  transition: transform .15s ease;
+}
+
+/* evitar overflow estranho em telas pequenas */
+@media (max-width: 768px) {
+  .logo {
+    transform: scale(1);   /* volta ao normal no celular */
+    height: 36px;
+  }
+  header { padding: 10px 0; }
+}
+
+ 
+/* Corpo da página */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Cabeçalho */
+header {
+  background: linear-gradient(135deg, #38c13a 30%, #0576e0 80%);
+  color: white;
+  padding: 20px 0;
+}
+
+header nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
+/* Conteúdo principal */
+
+/* Deixe o body ocupar a tela toda e organize em coluna */
+html, body {
+  height: 100%;         /* altura total */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;    /* altura mínima: viewport inteira */
+}
+
+/* Faça o main “crescer” para empurrar o footer */
+main {
+  flex: 1;             /* ocupa o espaço restante */
+}
+main {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h2 {
+  margin-bottom: 10px;
+  color: #4a90e2;
+}
+
+
+label {
+  font-weight: bold;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 10px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #357abd;
+}
+
+/* Rodapé */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+main{
+  margin-bottom: 20px;
+}
+
+.imagens-clicaveis {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.imagens-clicaveis img {
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.imagens-clicaveis img:hover {
+  transform: scale(1.1);
+  transition: transform 00.2s ease-in-out;
+}
+
+footer {
+  background: linear-gradient(135deg, #38c13a 30%, #0576e0 80%);background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  clear: both;
+  width: 100%;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

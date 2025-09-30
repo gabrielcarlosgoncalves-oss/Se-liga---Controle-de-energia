@@ -1,0 +1,93 @@
+
+/* Centraliza tudo na tela */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #38c13a 10%, #0576e0 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container do cadastro */
+.cadastro-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Título */
+.cadastro-container h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  width: 100%;       /* ocupa toda a largura do container */
+  margin: 0;         /* garante que não cria espaçamento extra */
+  box-sizing: border-box;
+}
+
+/* Estilos para cada grupo de campo (label e input) */
+.campo-formulario {
+    margin-bottom: 12px;
+    text-align: left;
+}
+/* Estilos para o título do campo (label) */
+.titulo-campo {
+    display: block; /* Garante que o título fique em uma linha separada */
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #555;
+    line-height: 1.2;
+}
+
+/* Botão */
+.btn-entrar {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #2575fc;
+  color: #fff;
+  border: none;            /* remove borda nativa */
+  cursor: pointer;         /* mãozinha */
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.btn-entrar:hover {
+  background: #1a5edc;
+}
+/* Texto de login */
+.login {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.login a {
+  color: #2575fc;
+  text-decoration: none;
+}
+
+.login a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,73 @@
+/* Centralizar tudo na tela */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #38c13a 10%, #0576e0 80%);
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container do login */
+.login-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 350px;
+}
+
+/* Título */
+.login-container h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+form input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* Botão */
+.btn-entrar {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #2575fc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+}
+.btn-entrar:hover {
+  background: #1a5edc;
+}
+
+/* Texto de cadastro */
+.signup {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.signup a {
+  color: #2575fc;
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
